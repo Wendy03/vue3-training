@@ -2,9 +2,6 @@ import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { Toast } from '../../js/helper.js';
 import { apiUrl, apiPath } from '../../js/config.js';
 
-let productModal = '';
-let delProductModal = '';
-
 const app = createApp({
   data() {
     return {
@@ -13,6 +10,8 @@ const app = createApp({
       tempProduct: {
         imagesUrl: [],
       },
+      productModal: '',
+      delProductModal: '',
       isLoading: true,
       isProcessing: true,
     };
@@ -24,10 +23,8 @@ const app = createApp({
     );
     axios.defaults.headers.common.Authorization = token;
     this.checkAdmin();
-    productModal = new bootstrap.Modal(document.getElementById('productModal'));
-    delProductModal = new bootstrap.Modal(
-      document.getElementById('delProductModal')
-    );
+    this.productModal = new bootstrap.Modal(this.$refs.productModal);
+    this.delProductModal = new bootstrap.Modal(this.$refs.delProductModal);
   },
   methods: {
     checkAdmin() {
@@ -73,16 +70,16 @@ const app = createApp({
         this.tempProduct = {
           imagesUrl: [],
         };
-        productModal.show();
+        this.productModal.show();
       } else if (type === 'edit') {
         this.tempProduct = { ...item };
         this.isProcessing = false;
         this.isNew = false;
-        productModal.show();
+        this.productModal.show();
       } else if (type === 'del') {
         this.tempProduct = { ...item };
         this.isProcessing = false;
-        delProductModal.show();
+        this.delProductModal.show();
       }
     },
     updateProduct() {
@@ -100,7 +97,7 @@ const app = createApp({
           });
           this.isLoading = true;
           this.isProcessing = true;
-          productModal.hide();
+          this.productModal.hide();
           this.getProducts();
         })
         .catch((err) => {
@@ -122,7 +119,7 @@ const app = createApp({
             icon: 'success',
           });
           this.isProcessing = true;
-          delProductModal.hide();
+          this.delProductModal.hide();
           this.getProducts();
           this.isLoading = true;
         })
