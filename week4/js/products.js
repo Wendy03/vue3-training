@@ -6,8 +6,8 @@ import productModalContent from '../components/productModal.js';
 import delProductModalContent from '../components/delProductModal.js';
 import pagination from '../components/pagination.js';
 
-let productModal = '';
-let delProductModal = '';
+let productModal = null;
+let delProductModal = null;
 
 const app = createApp({
   data() {

@@ -243,18 +243,19 @@ export default {
         httpMethod = 'put';
         url = `${apiUrl}/api/${apiPath}/admin/product/${this.product.id}`;
       }
+      this.isProcessing = true;
       axios[httpMethod](url, { data: this.product })
         .then((res) => {
           Toast.fire({
             title: `${res.data.message}`,
             icon: 'success',
           });
-          this.isProcessing = true;
+          this.isProcessing = false;
           this.$emit('close', 'updateData');
           this.$emit('update');
         })
         .catch((err) => {
-          console.dir(err);
+          this.isProcessing = false;
           const errMessage = err.response
             ? err.response.data.message
             : err.data?.message;

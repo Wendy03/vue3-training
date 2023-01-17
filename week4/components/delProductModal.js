@@ -57,6 +57,7 @@ export default {
   },
   methods: {
     delProduct() {
+      this.isProcessing = true;
       axios
         .delete(`${apiUrl}/api/${apiPath}/admin/product/${this.product.id}`)
         .then((res) => {
@@ -64,11 +65,12 @@ export default {
             title: `${res.data.message}`,
             icon: 'success',
           });
-          this.isProcessing = true;
+          this.isProcessing = false;
           this.$emit('close', 'delData');
           this.$emit('update');
         })
         .catch((err) => {
+          this.isProcessing = false;
           const errMessage = err.response
             ? err.response.data.message
             : err.data?.message;
