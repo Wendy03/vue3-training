@@ -22,7 +22,7 @@ img {
 }
 
 .logo {
-  background: url('../../images/logo_7.png') center no-repeat;
+  background: url('../images/logo_7.png') center no-repeat;
   display: block;
   width: 128px;
   height: 48px;
