@@ -21,6 +21,17 @@ img {
   max-width: 100%;
 }
 
+.logo {
+  background: url('../../images/logo_7.png') center no-repeat;
+  display: block;
+  width: 128px;
+  height: 48px;
+  text-indent: 101%;
+  overflow: hidden;
+  white-space: nowrap;
+  background-size: contain;
+}
+
 .primary-image {
   height: 300px;
 }
@@ -48,6 +59,11 @@ img {
 .images {
   height: 150px;
 }
+
+.card-image {
+  height: 100px;
+}
+
 .circle {
   margin: 50vh auto;
   width: 100px;
@@ -61,4 +77,19 @@ img {
   100% {
     transform: rotate(360deg);
   }
+}
+
+a {
+  text-decoration: none;
+}
+
+.cart-modal {
+  width: 600px;
+  position: fixed;
+  right: 0;
+  top: 50px;
+  padding: 10px;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  z-index: 2000;
 }
