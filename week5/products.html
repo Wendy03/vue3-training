@@ -78,6 +78,7 @@
                       class="btn btn-outline-danger"
                       type="button"
                       @click="deleteAllCarts"
+                      :disabled="status.isProcessing"
                     >
                       清空購物車
                     </button>
@@ -98,7 +99,7 @@
                             <button
                               type="button"
                               class="btn btn-outline-danger"
-                              @click="removeCartItem(cart.id)"
+                              @click.prevent="removeCartItem(cart.id)"
                               :disabled="status.loadingItem === cart.id"
                             >
                               <i
@@ -120,6 +121,7 @@
                                 <button
                                   class="btn btn-outline-primary"
                                   @click.prevent="updateCart(cart.id, cart.qty + 1, cart)"
+                                  :disabled="status.isProcessing"
                                   :disabled="cart.qty === 5"
                                 >
                                   +
@@ -130,13 +132,14 @@
                                 type="text"
                                 class="form-control text-center"
                                 :value="cart.qty"
-                                @keyup.enter="updateCart(cart.id, cart.qty, cart)"
+                                readonly
                                 disabled
                               />
                               <div class="input-group-append">
                                 <button
                                   class="btn btn-outline-primary"
                                   @click.prevent="updateCart(cart.id, cart.qty - 1, cart)"
+                                  :disabled="status.isProcessing"
                                   :disabled="cart.qty === 1"
                                 >
                                   -
@@ -242,7 +245,7 @@
                       type="button"
                       class="btn btn-outline-danger btn-sm ms-auto"
                       :disabled="status.loadingItem === product.id || !product.is_enabled"
-                      @click="addToCart(product.id)"
+                      @click.prevent="addToCart(product.id)"
                     >
                       <i
                         class="fas fa-spinner fa-spin"
@@ -264,6 +267,7 @@
       <user-product-modal
         ref="userProductModal"
         :product="product"
+        :status="status"
         @add-to-cart="addToCart"
       ></user-product-modal>
       <user-order-modal
@@ -306,10 +310,9 @@
                 "
                 :style="{ backgroundImage: `url(${product.imageUrl})` }"
               ></div>
-                  <template v-for="(img,index) in product.imagesUrl" :key="index + img">
+                  <template v-for="(img,index) in product.imagesUrl" :key="index + 'img'">
                     <div v-if="img">
-                      <img :src="img" alt="" class="card-image mt-2">
-                    </div>
+                      <img :src="img" :alt="index + 'img'" class="card-image mt-2">
                   </template>
                 </div>
                 <div class="col-sm-7">
@@ -319,11 +322,11 @@
                   <div class="h5">{{ product.price }} 元</div>
                   <div class="input-group mt-5">
                     <select class="form-select" name="qty" v-model.number="qty" >
-                      <option :value="num" v-for="num in 5" :key="num">
+                      <option :value="num" v-for="num in 5" :key="num + 'num'">
                         {{ num }} {{ product.unit }}
                       </option>
                     </select>
-                    <button type="button" class="btn btn-primary" @click="$emit('add-to-cart', product.id, qty)">
+                    <button type="button" class="btn btn-primary" @click="$emit('add-to-cart', product.id, qty)" :disabled="status.loadingItem === product.id || !product.is_enabled">
                       加入購物車
                     </button>
                   </div>

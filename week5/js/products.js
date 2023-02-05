@@ -72,7 +72,6 @@ const app = createApp({
         });
     },
     getProduct(id) {
-      console.log(id);
       this.status.loadingItem = id;
       axios
         .get(`${apiUrl}/api/${apiPath}/product/${id}`)
@@ -181,10 +180,12 @@ const app = createApp({
         });
     },
     deleteAllCarts() {
+      this.isProcessing = true;
       axios
         .delete(`${apiUrl}/api/${apiPath}/carts`)
         .then((res) => {
           const { message } = res.data;
+          this.isProcessing = false;
           Toast.fire({
             title: `${message}`,
             icon: 'success',
@@ -192,6 +193,7 @@ const app = createApp({
           this.getCarts();
         })
         .catch((_err) => {
+          this.isProcessing = false;
           Toast.fire({
             title: '無法刪除資料，稍後再試',
             icon: 'error',

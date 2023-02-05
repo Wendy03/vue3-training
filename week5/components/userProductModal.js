@@ -7,6 +7,12 @@ export default {
         return {};
       },
     },
+    status: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
   },
   data() {
     return {
