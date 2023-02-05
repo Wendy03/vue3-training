@@ -121,8 +121,7 @@
                                 <button
                                   class="btn btn-outline-primary"
                                   @click.prevent="updateCart(cart.id, cart.qty + 1, cart)"
-                                  :disabled="status.isProcessing"
-                                  :disabled="cart.qty === 5"
+                                  :disabled="status.isProcessing || cart.qty === 5"
                                 >
                                   +
                                 </button>
@@ -138,9 +137,8 @@
                               <div class="input-group-append">
                                 <button
                                   class="btn btn-outline-primary"
+                                  :disabled="status.isProcessing || cart.qty === 1"
                                   @click.prevent="updateCart(cart.id, cart.qty - 1, cart)"
-                                  :disabled="status.isProcessing"
-                                  :disabled="cart.qty === 1"
                                 >
                                   -
                                 </button>
