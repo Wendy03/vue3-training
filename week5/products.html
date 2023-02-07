@@ -59,7 +59,7 @@
             <button
               class="btn btn-secondary"
               type="button"
-              @click.prevent="toggleCarts"
+              @click="toggleCarts"
             >
               <i
                 class="fa fa-shopping-cart text-light fa-2x"
@@ -99,7 +99,7 @@
                             <button
                               type="button"
                               class="btn btn-outline-danger"
-                              @click.prevent="removeCartItem(cart.id)"
+                              @click="removeCartItem(cart.id)"
                               :disabled="status.loadingItem === cart.id"
                             >
                               <i
@@ -119,8 +119,9 @@
                             <div class="input-group">
                               <div class="input-group-prepend">
                                 <button
+                                  type="button"
                                   class="btn btn-outline-primary"
-                                  @click.prevent="updateCart(cart.id, cart.qty + 1, cart)"
+                                  @click="updateCart(cart.id, cart.qty + 1, cart)"
                                   :disabled="status.isProcessing || cart.qty === 5"
                                 >
                                   +
@@ -136,9 +137,10 @@
                               />
                               <div class="input-group-append">
                                 <button
+                                  type="button"
                                   class="btn btn-outline-primary"
                                   :disabled="status.isProcessing || cart.qty === 1"
-                                  @click.prevent="updateCart(cart.id, cart.qty - 1, cart)"
+                                  @click="updateCart(cart.id, cart.qty - 1, cart)"
                                 >
                                   -
                                 </button>
@@ -231,7 +233,7 @@
                     <button
                       type="button"
                       class="btn btn-outline-secondary btn-sm"
-                      @click.prevent="getProduct(product.id)"
+                      @click="getProduct(product.id)"
                     >
                       <i
                         class="fas fa-spinner fa-spin"
@@ -243,7 +245,7 @@
                       type="button"
                       class="btn btn-outline-danger btn-sm ms-auto"
                       :disabled="status.loadingItem === product.id || !product.is_enabled"
-                      @click.prevent="addToCart(product.id)"
+                      @click="addToCart(product.id)"
                     >
                       <i
                         class="fas fa-spinner fa-spin"
@@ -311,6 +313,7 @@
                   <template v-for="(img,index) in product.imagesUrl" :key="index + 'img'">
                     <div v-if="img">
                       <img :src="img" :alt="index + 'img'" class="card-image mt-2">
+                    </div>
                   </template>
                 </div>
                 <div class="col-sm-7">
@@ -402,7 +405,7 @@
                     <v-field
                       id="tel"
                       name="電話"
-                      type="text"
+                      type="tel"
                       class="form-control"
                       :class="{ 'is-invalid': errors['電話'] }"
                       placeholder="請輸入電話"
